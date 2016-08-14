@@ -1,0 +1,44 @@
+<div class = "text-center">
+	<h1>Burgers To Add</h1>
+	<img src="/static/img/burger.jpg" alt="burger" height="200" width="200">
+</div>
+
+<div class = "row">
+	<div class="col-xs-6 col-sm-4">
+	</div>
+	<div class="col-xs-6 col-sm-3">
+		<h2>Pending Devour</h2>
+		{{#each burgers}}
+			{{#unless this.devoured}}
+				<p class="alert alert-danger" style="width: 40%">
+					{{this.id}}. {{this.burger_name}}
+					<form id="devourBurger" action="/update?_method=PUT" method="POST">
+						<input type="hidden" name="id" value="{{this.id}}">
+						<button type="submit" class="btn btn-warning" id="eatBurger">Devoured</button>
+					</form>
+				</p>
+			{{/unless}}
+		{{/each}}
+	</div>
+	<div class="col-xs-6 col-sm-3">
+		<h2>Devoured</h2>
+		{{#each burgers}}
+			{{#if this.devoured}}
+				<p class="alert alert-info" style="width: 40%">
+					{{this.id}}. {{this.burger_name}}
+				</p>
+			{{/if}}
+		{{/each}}
+	</div>
+	<div class="col-xs-6 col-sm-3">
+	</div>
+</div>
+
+<div class = "row text-center">
+	<h2>Add a Burger</h2>
+	<form method="POST" action="/create" class="button-size">
+		<textarea type="text" name="burger_name"></textarea>
+		<br>
+		<button type="submit">Submit Burger</button>
+	</form>
+</div>
