@@ -25,17 +25,23 @@ app.get('/', function(req,res){
 		});
 	});
 
-// app.post('/create', function(req,res){
-// 	thisConnection.insertOne('burgers', req.body.burger_name, function(data){
-// 		res.redirect('/');
-// 	});
-// });
+app.post('/create', function(req,res){
+    BurgerBuyer.create({
+        burger_name: req.body.burger_name,
+        devoured: false
+    }).then(function(success){
+		res.redirect('/');
+	});
+});
 
-// app.put('/update', function(req,res){
-// 	thisConnection.updateOne('burgers', req.body.id, function(data){
-// 		res.redirect('/');
-// 	});
-// });
+app.put('/update', function(req,res){
+        BurgerBuyer.findAll({}).then(function(success){
+        console.log(success);
+        success[0].set('devoured', true);
+        success[0].save();
+		res.redirect('/');
+	});
+});
 
 app.listen(PORT, function(){
     console.log("Listening on port", PORT);
