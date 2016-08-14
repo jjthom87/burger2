@@ -7,6 +7,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
+        // BurgerBuy.hasMany(models.burger_name);
         // associations can be defined here
       }
     }

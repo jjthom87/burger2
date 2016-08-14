@@ -16,8 +16,26 @@ app.set('view engine', 'handlebars');
 
 app.use('/static', express.static('public/assets'));
 
-var BurgerBuy = require('./models').BurgerBuy;
-BurgerBuy.sync();
+var BurgerBuyer = require('./models').BurgerBuy;
+BurgerBuyer.sync();
+
+app.get('/', function(req,res){
+    BurgerBuyer.findAll({}).then(function(success){
+			res.render('index', {BurgerBuys: success});
+		});
+	});
+
+// app.post('/create', function(req,res){
+// 	thisConnection.insertOne('burgers', req.body.burger_name, function(data){
+// 		res.redirect('/');
+// 	});
+// });
+
+// app.put('/update', function(req,res){
+// 	thisConnection.updateOne('burgers', req.body.id, function(data){
+// 		res.redirect('/');
+// 	});
+// });
 
 app.listen(PORT, function(){
     console.log("Listening on port", PORT);

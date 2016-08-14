@@ -8,7 +8,7 @@
 	</div>
 	<div class="col-xs-6 col-sm-3">
 		<h2>Pending Devour</h2>
-		{{#each burgers}}
+		{{#each BurgerBuys}}
 			{{#unless this.devoured}}
 				<p class="alert alert-danger" style="width: 40%">
 					{{this.id}}. {{this.burger_name}}
@@ -22,7 +22,7 @@
 	</div>
 	<div class="col-xs-6 col-sm-3">
 		<h2>Devoured</h2>
-		{{#each burgers}}
+		{{#each BurgerBuys}}
 			{{#if this.devoured}}
 				<p class="alert alert-info" style="width: 40%">
 					{{this.id}}. {{this.burger_name}}
