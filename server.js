@@ -16,30 +16,23 @@ app.set('view engine', 'handlebars');
 
 app.use('/static', express.static('public/assets'));
 
-var BurgerBuyer = require('./models').BurgerBuy;
-BurgerBuyer.sync();
+var BurgerBuyer = require('./config/orm.js')['exportAll'];
 
 app.get('/', function(req,res){
-    BurgerBuyer.findAll({}).then(function(success){
-			res.render('index', {BurgerBuys: success});
+    BurgerBuyer.selectAll(function(success){
+	res.render('index', {BurgerBuys: success});
 		});
 	});
 
 app.post('/create', function(req,res){
-    BurgerBuyer.create({
-        burger_name: req.body.burger_name,
-        devoured: false
-    }).then(function(success){
+    BurgerBuyer.insertOne(req.body.burger_name, function(success){
 		res.redirect('/');
 	});
 });
 
 app.put('/update', function(req,res){
-        BurgerBuyer.findAll({}).then(function(success){
-        console.log(success);
-        success[0].set('devoured', true);
-        success[0].save();
-		res.redirect('/');
+        BurgerBuyer.updateOne(req.body.id, function(success){
+		    res.redirect('/');
 	});
 });
 
